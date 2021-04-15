@@ -13,7 +13,7 @@ public class UserController {
     public UserController(UserRepository repository) {
         this.repository = repository;
     }
-    @GetMapping("https://chargemessenger.herokuapp.com/User/{uuid}")
+    @GetMapping("/User/{uuid}")
     User one(@PathVariable String uuid){
         for (User user:repository.findAll()
              ) {
