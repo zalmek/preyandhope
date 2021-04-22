@@ -2,6 +2,8 @@ package com.example.chms.controller;
 
 import com.example.chms.Model.User;
 import com.example.chms.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +16,12 @@ public class UserController {
         this.repository = repository;
     }
     @GetMapping("/User/{uuid}")
-    User one(@PathVariable String uuid){
-        for (User user:repository.findAll()
-             ) {
+    ResponseEntity<Integer> one(@PathVariable String uuid){
+        for (User user:repository.findAll()) {
             if (user.getUuid().equals(uuid)){
-                return repository.getOne(user.getId());
+                return new ResponseEntity<>(repository.getOne(user.getId()).getUserid(), HttpStatus.OK);
             }
         };
-        return null;
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }
